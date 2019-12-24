@@ -1,0 +1,161 @@
+//
+// Load core variables and mixins
+// --------------------------------------------------
+
+@import "variables.less";
+@import "mixins.less";
+
+//
+// Store Application Color Settings (overwrites base.css styles that aren't using bootstrap classes & color variables)
+// --------------------------------------------------
+
+//*Store Color Variables*//
+@sale-color: @brand-danger;
+@in-stock-color: @brand-success;
+@out-of-stock-color: @brand-danger;
+
+.sale-price,
+.level-price {
+	color: @sale-color;
+}
+
+.regular-price {
+	color: @gray-light;
+	font-weight: normal;
+	margin: 0 0 5px 0;
+	font-size: (@font-size-base * .8);
+}
+
+.in-stock-hint {
+	color: @in-stock-color;
+}
+
+.out-stock-hint {
+	color: @out-of-stock-color;
+}
+
+/*Baseline margin utility class to add basline spacing to
+    content and other elements
+*/
+.baseline-margin {
+	margin-bottom: floor(@padding-base-vertical * 1.8);
+}
+
+.medium-image {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*Store Alerts and Notices -- 
+these should be converted to bootstrap 'alert' classes */
+
+.notice-success {
+	.alert-variant(@alert-success-bg; @alert-success-border; @alert-success-text);
+}
+
+.notice-info {
+	.alert-variant(@alert-info-bg; @alert-info-border; @alert-info-text);
+}
+
+.notice-warning {
+	.alert-variant(@alert-warning-bg; @alert-warning-border; @alert-warning-text);
+}
+
+.notice-failure {
+	.alert-variant(@alert-danger-bg; @alert-danger-border; @alert-danger-text);
+}
+
+.field-validation-error {
+	color: @alert-danger-text;
+}
+
+/*Checkout Highlights*/
+.checkout-header, .order-header {
+	border-bottom: solid 1px @gray-lighter;
+}
+
+.block-success .checkout-header {
+	color: @brand-success;
+	border-bottom: solid 1px screen(@brand-success, #ccc);
+}
+
+.block-danger .checkout-header {
+	color: @brand-danger;
+	border-bottom: solid 1px screen(@brand-danger, #ccc);
+}
+
+.form-label-prefix-required, .form-label-suffix-required {
+	color: @brand-danger;
+}
+
+.has-success .form-control-feedback::before,
+.braintree-hosted-fields-valid + span::before {
+	content: "\f00c"; /* fa-check */
+	color: @brand-success;
+}
+
+.has-error .form-control-feedback::before,
+.braintree-hosted-fields-invalid + span::before {
+	content: "\f00d"; /* fa-times */
+	color: @brand-danger;
+}
+
+/*Add to cart form margins*/
+.add-to-cart-group {
+	.form-control, select, .btn {
+		margin-bottom: 8px;
+	}
+}
+/*Small add to cart form for product listings and varaint listings*/
+.cart-form-sm {
+	.btn {
+		.button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @btn-border-radius-small);
+	}
+
+	.form-control, select {
+		.input-size(@input-height-small; @padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @input-border-radius-small);
+	}
+
+	.quantity-field {
+		width: 45px;
+	}
+
+	label[for="Quantity"] {
+		display: none;
+	}
+}
+
+.variant-info-wrap {
+	border-top: 0px;
+	padding-top: inherit;
+	margin-top: inherit;
+}
+
+/*product.variants-in-list.xml.config*/
+.variant-image-wrap img {
+	width: 100%;
+	max-width: 80px;
+}
+
+/*entity.responsivegrid.xml.config*/
+.sub-entity-main-wrapper {
+	.panel {
+		margin-bottom: 0;
+		text-align: left;
+		font-weight: bold;
+
+		.fa-angle-right {
+			float: right;
+		}
+
+		@media (min-width: @screen-md-min) {
+			margin-bottom: @padding-base-vertical;
+			text-align: center;
+
+			.fa-angle-right {
+				display: none;
+			}
+		}
+	}
+}

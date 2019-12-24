@@ -1,0 +1,68 @@
+﻿@Html.Action(ViewNames.AddTimerPartial, ControllerNames.SessionTimeout)
+@Html.Token("BuySafeSeal")
+
+@Html.Action(ActionNames.GoogleCustomerReviewsBadge, ControllerNames.GoogleCustomerReviews)
+
+@Html.RegisterInlineScript(
+	@<script type="text/javascript">
+		window.postalCodeRegexConfiguration = {
+			postalCodeRegexMapUrl: @Html.JavascriptString(Url.Action(ActionNames.PostalCodeRegexMap, ControllerNames.Country)),
+		};
+	</script>,
+	name: InlineScripts.PostalCodeRegexConfiguration)
+
+@Html.RegisterScriptBundle(
+	bundleUrl: ScriptBundlePaths.SkinBundle,
+	urls: new[]
+	{
+		Url.AppRelativeSkinUrl("scripts/bootstrap.js"),
+		ScriptPaths.AddToCart,
+		ScriptPaths.JQuery.Validate,
+		ScriptPaths.ValidationOptions,
+		ScriptPaths.JQueryValidate.Unobtrusive,
+		ScriptPaths.JQueryValidate.Bootstrap,
+		ScriptPaths.Validate.PostalCodeRegexLookup,
+		ScriptPaths.Validate.CreditCardFormat,
+		ScriptPaths.Validate.CreditCardFutureExpirationDate,
+		ScriptPaths.Validate.RequireChecked,
+		ScriptPaths.WhatsThis,
+		ScriptPaths.ModalEvent,
+	},
+	sharedDependencies: new[]
+	{
+		ScriptPaths.JQuery,
+		ScriptPaths.JQuery.AdnsfAlias,
+		InlineScripts.PostalCodeRegexConfiguration,
+	})
+
+@Html.RegisterInlineScript(
+	@<script type="text/javascript">
+		adnsf$.initializeAddToCartForms(
+		{
+			ajaxAddToCartUrl: @Html.JavascriptString(Url.Action(ActionNames.AjaxAddToCart, ControllerNames.Minicart)),
+			ajaxAddKitToCartUrl: @Html.JavascriptString(Url.Action(ActionNames.AjaxAddKitToCart, ControllerNames.Minicart)),
+			addToCartMessage: @Html.JavascriptString(AppLogic.GetString("minicart.addingtocart")),
+			addToWishMessage: @Html.JavascriptString(AppLogic.GetString("miniwish.addingtocart")),
+			invalidQuatityMessage: @Html.JavascriptString(AppLogic.GetString("addtocart.entervalidquantity")),
+			addToCartFailureMessage: @Html.JavascriptString(AppLogic.GetString("addtocart.error")),
+			addToWishFailureMessage: @Html.JavascriptString(AppLogic.GetString("addtowish.error")),
+			checkoutUrl: @Html.JavascriptString(Url.Action(ActionNames.Index, ControllerNames.Checkout)),
+			loginUrl: @Html.JavascriptString(Url.Action(ActionNames.SignIn, ControllerNames.Account)),
+		});
+
+		adnsf$.validator.unobtrusive.adapters.addSingleVal('min', 'val');
+	</script>,
+	dependencies: new[]
+	{
+		ScriptPaths.JQuery.AdnsfAlias,
+	})
+<script type="text/javascript">_satellite.pageBottom();</script>
+@Html.RegisterScriptReference("https://cdnjs.cloudflare.com/ajax/libs/picturefill/3.0.2/picturefill.min.js")
+
+@* Bundle and minify deferred JavaScript *@
+@Html.RenderDeferredScripts()
+
+@*This xmlpackage can be used to add dynamic data to javascripts such as tracking scripts that should run before the closing body tag*@
+@Html.XmlPackage("script.bodyclose", new { OrderAlreadyConfirmed = ViewBag.OrderAlreadyConfirmed })
+
+@Html.Action(ActionNames.Index, ControllerNames.InlineEdit)

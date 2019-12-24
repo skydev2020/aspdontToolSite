@@ -1,0 +1,75 @@
+/* SOCIAL ICONS */
+
+.social-links .icon {
+	border-radius: 100%;
+	width: 32px;
+	height: 32px;
+	font-size: 18px;
+	text-align: center;
+	line-height: 18px;
+	padding-top: 6px;
+	display: inline-block;
+	color: #fff;
+	box-shadow: 1px 1px 0px rgba(0,0,0,.4);
+	background: #ccc;
+	border-bottom: 0px;
+}
+
+.social-links a.icon {
+	color: #fff;
+	-webkit-transition: all 0.4s ease;
+	-moz-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+}
+
+.social-links a.icon:hover {
+	text-decoration: none;
+	box-shadow: none;
+}
+
+.social-links a:hover, .social-links a:focus, .social-links a:active {
+	text-decoration: none;
+	box-shadow: none;
+}
+
+/*common background colors*/
+.social-links .fa-facebook {
+	background-color: #436DBA;
+}
+
+.social-links .fa-twitter {
+	background-color: #3AC3FF;
+}
+
+.social-links .fa-instagram {
+	background-color: #B57A37;
+}
+
+.social-links .fa-pinterest {
+	background-color: #c92619;
+}
+
+.social-links .fa-youtube {
+	background-color: #F00;
+}
+
+.social-links .fa-google-plus {
+	background-color: #dd4b39;
+}
+
+.social-links .fa-houzz {
+	background-color: #7CC04B;
+}
+
+.social-links .fa-rss {
+	background-color: #f26109;
+}
+
+.social-links .fa-linkedin {
+	background-color: #3371b7;
+}
+
+.social-links .fa-yelp {
+	background-color: #c83218;
+}

@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	@Html.Partial("_Head")
+	@Html.Partial("_Head_Vertical_Custom")
+	@RenderSection("homestyles", false)
+</head>
+<body id="bodyTag" onload="_googWcmGet('number', '(844) 889-WRAP')">
+
+	@Html.Partial("_BodyOpen")
+	@Html.Partial("_BodyOpen_Vertical_Custom")
+	<div class="main-header">
+		<div class="container">
+			<div class="row header-row">
+                <div class="col-xs-7 col-sm-3 col-md-4 col-lg-4 storelogo-wrap">
+					@Html.Topic("0-template-logo")
+				</div>
+                <div class="col-xs-5 col-sm-9 col-md-8 col-lg-8 header-right-info">
+					<div class="row">
+                        <div class="hidden-xs hidden-sm col-md-6 col-lg-6">
+							@Html.Topic("0-template-header-middle")
+						</div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 top-right-header">
+							<div class="cart-header pull-right">
+								@Html.Action(ActionNames.Index, ControllerNames.UserLinks)
+							</div>
+                            @Html.Topic("0-template-header-social")
+							<div class="clearfix"></div>
+                            <div class="col-xs-12 header-right-phone">
+								@Html.Topic("0-template-header-right")
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="top-navigation-wrap">
+			<div class="container">
+				<div class="navbar navbar-default topnav" role="navigation">
+                    <div class="search-wrapper">
+						<div class="search-static">
+							@Html.Partial(ViewNames.SearchPartial)
+						</div>
+					</div>
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<div class="navbar-collapse collapse" id="top-nav-collapse">
+						@Html.Topic("0-template-top-nav")
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main-content-wrapper">
+		@RenderSection("homepagebanner", false)
+		<div class="main-background">
+			<div class="container">
+				@Html.Action(
+					actionName: "Detail",
+					controllerName: "Breadcrumb",
+					routeValues: new
+					{
+						PageTitle = ViewBag.PageTitle,
+						PathInfo = ViewBag.PathInfo
+					})
+				<div class="notices">
+					@Html.Action(ActionNames.Index, ControllerNames.Notice)
+				</div>
+				<!-- CONTENTS START -->
+				@RenderBody()
+				<!-- CONTENTS END -->
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-wrapper">
+		<div class="container">
+			<div class="row footer-row">
+				@Html.Topic("0-template-footer-menus")
+				<div class="clearfix"></div>
+			</div>
+			<div class="copyright-row">
+				<div class="copyright">
+					@Html.Topic("0-template-footer-copyright")
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- begin olark code -->
+<script type="text/javascript" async> ;(function(o,l,a,r,k,y){if(o.olark)return; r="script";y=l.createElement(r);r=l.getElementsByTagName(r)[0]; y.async=1;y.src="//"+a;r.parentNode.insertBefore(y,r); y=o.olark=function(){k.s.push(arguments);k.t.push(+new Date)}; y.extend=function(i,j){y("extend",i,j)}; y.identify=function(i){y("identify",k.i=i)}; y.configure=function(i,j){y("configure",i,j);k.c[i]=j}; k=y._={s:[],t:[+new Date],c:{},l:a}; })(window,document,"static.olark.com/jsclient/loader.js");
+/* custom configuration goes here (www.olark.com/documentation) */
+olark.identify('2100-237-10-3495');</script>
+<!-- end olark code -->
+
+	<!-- Minicart modal -->
+	@Html.Action(ActionNames.Index, ControllerNames.Minicart, new { cartType = CartTypeEnum.ShoppingCart })
+
+	<!-- Miniwish modal -->
+	@Html.Action(ActionNames.Index, ControllerNames.Minicart, new { cartType = CartTypeEnum.WishCart })
+
+	<!-- Minicart and miniwish resources (javascript and overlay html) -->
+	@Html.Action(ActionNames.MinicartResources, ControllerNames.Minicart)
+	<div class="live-chat-wrapper">
+		<div class="live-chat">
+			@Html.Topic("0-template-live-chat")
+		</div>
+	</div>
+	@Html.Partial("_BodyClose_Vertical_Custom")
+	@Html.Partial("_BodyClose")
+	@Html.XmlPackage("promo-window")
+</body>
+</html>

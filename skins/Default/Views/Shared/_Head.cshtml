@@ -1,0 +1,35 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+@* Search appconfigs/settings for 'meta' to set the global page title and other meta tags *@
+@Html.Action(ActionNames.Detail, ControllerNames.MetaTag, new { metaTitle = @ViewBag.MetaTitle, metaDescription = @ViewBag.MetaDescription, metaKeywords = @ViewBag.MetaKeywords })
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+@*This xmlpackage can be used to add dynamic data to javascripts such as tracking scripts that should run at the top of the head tag*@
+@Html.XmlPackage("script.head", new { OrderAlreadyConfirmed = ViewBag.OrderAlreadyConfirmed })
+
+@* Bundle and minify jQuery. *@
+@Html.RegisterScriptBundle(
+	bundleUrl: ScriptBundlePaths.SkinBundle,
+	urls: new[]
+	{
+		ScriptPaths.JQuery,
+		ScriptPaths.JQuery.AdnsfAlias,
+	})
+
+@* Bundle and minify CSS. *@
+@Html.RenderStyleBundle(
+	bundlePath: Url.SkinUrl("css/_skin_bundle"),
+	filePaths: new[]
+	{
+		Url.AppRelativeSkinUrl("less/bootstrap.css"),
+		Url.AppRelativeSkinUrl("less/themestyles.css"),
+		Url.AppRelativeSkinUrl("css/font-awesome.css"),		
+		Url.AppRelativeSkinUrl("css/base.css"),
+		Url.AppRelativeSkinUrl("css/fonts.css"),
+		Url.AppRelativeSkinUrl("css/social-icons.css"),
+		Url.AppRelativeSkinUrl("css/payment-icons.css"),
+		Url.AppRelativeSkinUrl("css/custom.css"),
+		Url.AppRelativeSkinUrl("css/imageViewer.css"),
+	})

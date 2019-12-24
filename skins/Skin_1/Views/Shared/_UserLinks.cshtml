@@ -1,0 +1,28 @@
+﻿@model UserLinksViewModel
+
+<div class="user-links">
+    @if (!Model.CheckoutInProgress)
+    {
+        <div class="minicart-wrap-link checkout-link">
+			<a id="js-header-checkout-link" 
+				href="@Html.AttributeBool(Model.CartHasItems, Url.Action(ActionNames.Index, ControllerNames.Checkout, new RouteValueDictionary { { RouteDataKeys.ReturnUrl, Request.RawUrl } }))"
+				class="user-link checkout-link" 
+				disabled="@Html.AttributeBool(!Model.CartHasItems, "disabled")">
+				<i class="fa @Html.AttributeBool(Model.MinicartEnabled, "fa-check-square-o", "fa-shopping-cart")"></i>
+				@Html.StringResource("userlinks.checkout")
+			</a>
+        </div>
+    }
+    @if (Model.MinicartEnabled && !Model.CheckoutInProgress)
+    {
+        <div class="minicart-wrap-link view-cart-link">
+            @Html.Action(ActionNames.MinicartLink, ControllerNames.Minicart, new { cartType = CartTypeEnum.ShoppingCart })
+        </div>
+    }
+    @if (Model.MiniwishlistEnabled)
+    {
+        <div class="hidden-xs view-wish-link">
+            @Html.Action(ActionNames.MinicartLink, ControllerNames.Minicart, new { cartType = CartTypeEnum.WishCart })
+        </div>
+	}
+</div>

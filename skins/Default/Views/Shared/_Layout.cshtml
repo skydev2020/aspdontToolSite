@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	@Html.Partial("_Head")
+</head>
+<body>
+	@Html.Partial("_BodyOpen")
+	<div id="skiptocontent"><a href="#maincontent">@Html.StringResource("responsiveskin.skiptocontentlinktext")</a></div>
+	<div class="background">
+		<div class="body-background">
+			<div class="container">
+				<div class="row header-row">
+					<div class="col-sm-5 logo-wrap">
+						@Html.Topic("Template.Logo")
+					</div>
+					<div class="col-sm-7 text-right-sm header-cart">
+						@Html.Action(ActionNames.Index, ControllerNames.UserLinks)
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<nav>
+					<div class="navbar navbar-default topnav" role="navigation">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav-collapse">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand visible-xs menu-label" data-toggle="collapse" data-target="#top-nav-collapse" href="#">
+								@Html.StringResource("responsiveskin.menulabel")
+							</a>
+						</div>
+						<div class="navbar-collapse collapse" id="top-nav-collapse">
+							<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										@Html.StringResource("responsiveskin.categorymenulabel")
+										<span class="caret"></span>
+									</a>
+									@Html.XmlPackage("entitymenu", new { entitytype = "category" })
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										@Html.StringResource("responsiveskin.manufacturermenulabel")
+										<span class="caret"></span>
+									</a>
+									@Html.XmlPackage("entitymenu", new { entitytype = "manufacturer" })
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										@Html.StringResource("responsiveskin.accountmenulabel")
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="@Url.Action(ActionNames.Index, ControllerNames.Account)">
+												@Html.StringResource("responsiveskin.accountlabel")
+											</a>
+										</li>
+										<li>
+											<a href="@Url.Action(ActionNames.Index, ControllerNames.Account)#OrderHistory">
+												@Html.StringResource("responsiveskin.orderhistorylabel")
+											</a>
+										</li>
+										@if(AppLogic.AppConfigBool("ShowWishButtons"))
+										{
+											<li>
+												<a href="#miniwish-modal" data-toggle="modal">
+													@Html.StringResource("responsiveskin.wishlistlabel")
+												</a>
+											</li>
+										}
+										<li class="divider"></li>
+										<li>
+											@Html.Action(ActionNames.LoginLinks, ControllerNames.UserLinks)
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<div class="nav navbar-nav navbar-right navbar-form search-wrap">
+								@Html.Partial(ViewNames.SearchPartial)
+							</div>
+						</div>
+					</div>
+				</nav>
+				<div class="notices">
+					@Html.Action(ActionNames.Index, ControllerNames.Notice)
+				</div>
+				@Html.Action(
+					actionName: "Detail",
+					controllerName: "Breadcrumb",
+					routeValues: new
+					{
+						PageTitle = ViewBag.PageTitle,
+						PathInfo = ViewBag.PathInfo
+					})
+				<div id="maincontent" class="main-content-wrapper">
+					<!-- Contents start -->
+					<main>
+						@RenderBody()
+					</main>
+					<!-- Contents end -->
+				</div>
+			</div>
+		</div>
+		<footer>
+			<div class="footer-wrapper">
+				<div class="container">
+					<div class="row footer-row">
+						@Html.Topic("Template.footer")
+						<div class="clearfix"></div>
+					</div>
+					<div class="copyright-row">
+						<div class="copyright">
+							@Html.Topic("Template.SubFooter")
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<!-- Minicart modal -->
+	@Html.Action(ActionNames.Index, ControllerNames.Minicart, new { cartType = CartTypeEnum.ShoppingCart })
+
+	<!-- Miniwish modal -->
+	@Html.Action(ActionNames.Index, ControllerNames.Minicart, new { cartType = CartTypeEnum.WishCart })
+
+	<!-- Minicart and miniwish resources (javascript and overlay html) -->
+	@Html.Action(ActionNames.MinicartResources, ControllerNames.Minicart)
+
+	@Html.Partial("_BodyClose")
+</body>
+</html>

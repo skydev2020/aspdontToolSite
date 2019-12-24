@@ -1,0 +1,101 @@
+@model AccountSignInViewModel
+
+@functions{ 
+
+	public bool startup()
+	{
+		bool returnValue = false;
+
+		string activate = CommonLogic.QueryStringCanBeDangerousContent("Activate");
+		bool post = "POST" == this.Context.Request.HttpMethod;
+		bool get = "GET" == this.Context.Request.HttpMethod;
+		Customer customer = Context.GetCustomer();
+
+		if (!string.IsNullOrWhiteSpace(activate))
+		{
+			switch (activate.ToLower())
+			{
+				case "setup":
+					if (get && customer.IsRegistered && (customer.IsAdminUser || customer.IsAdminSuperUser))
+					{
+						returnValue = true;
+					}
+					break;
+				case "password_reset":  
+				case "password_send": 
+				case "password_login_without": 
+				case "password_login_with":
+					returnValue = true;
+					break;  
+			}
+		}
+
+		return returnValue;
+	}
+} 
+
+@if (startup())
+{
+	Html.RenderPartial("~/Skins/PasswordResetToken.cshtml", Model, new ViewDataDictionary { { "Activate", CommonLogic.QueryStringCanBeDangerousContent("Activate") } });
+}
+else if (0 > AppLogic.AppConfigUSInt("password.reset.token.time_elaped") || string.IsNullOrWhiteSpace(AppLogic.AppConfig("LostPassword.Password.Signin.Page")))
+{
+	var page = AppLogic.AppConfig("LostPassword.Password.Signin.Page");
+	if (string.IsNullOrWhiteSpace(page))
+	{
+		page = "~/Views/Account/Signin.cshtml";
+	}
+	Html.RenderPartial(page, Model);
+}
+else {
+	<div class="page-wrap signin-page">
+
+		<h1>@Html.StringResource("signin.aspx.6")</h1>
+		
+		<div class="row">
+			<div class="col-sm-6">
+				@{
+					using (Html.BeginForm(
+						actionName: ActionNames.SignIn,
+						controllerName: null,
+						routeValues: new { returnUrl = @Model.ReturnUrl },
+						method: FormMethod.Post,
+						htmlAttributes: new { @class = "form login-form" }))
+					{
+						<div class="form-text signin-text">
+							<a href="@Url.Action(ActionNames.Create)">@Html.StringResource("signin.aspx.7")</a>
+						</div>
+						<div class="group-header form-header signin-text">
+							@Html.Topic("SigninPageHeader")
+						</div>
+						@Html.EditorEntryFor(
+								expression: m => m.Email)
+
+						@Html.EditorEntryFor(
+								expression: m => m.Password)
+
+						if (Model.DisplayCaptcha)
+						{
+							@Html.Action(ActionNames.Index, ControllerNames.Captcha)
+						}
+
+						@Html.EditorEntryFor(
+							expression: m => m.PersistLogin,
+							editorHtmlAttributes: new Dictionary<string, object>{
+								{ "aria-describedby", "item-reader-only-" + @Html.IdFor(m => m.PersistLogin)}
+							})
+
+						<span id="item-reader-only-@Html.IdFor(m => m.PersistLogin)" class="screen-reader-only">@AppLogic.GetString("account.rememberpassword.whats-this.content")</span>
+
+						<div class="page-action-bar sign-in-actions">
+							<input type="submit" class="btn btn-primary login-button" value="@Html.StringResource("signin.aspx.19")" />
+						</div>
+					}
+				}
+			</div>
+		</div>
+		@{
+			Html.RenderPartial("~/Skins/PasswordResetToken.cshtml", Model, new ViewDataDictionary { { "Activate", "password_request" } });
+		}
+	</div> 
+}

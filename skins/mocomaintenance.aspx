@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" Inherits="AspDotNetStorefrontAdmin.mocomaintenance" CodeFile="mocomaintenance.aspx.cs" %>

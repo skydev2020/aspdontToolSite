@@ -1,0 +1,39 @@
+﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+@* Search appconfigs/settings for 'meta' to set the global page title and other meta tags *@
+@Html.Action(ActionNames.Detail, ControllerNames.MetaTag, new { metaTitle = @ViewBag.MetaTitle, metaDescription = @ViewBag.MetaDescription, metaKeywords = @ViewBag.MetaKeywords })
+
+<meta name="google-site-verification" content="qv-uHpZHbvs1GBANf_iP3lGF1iC_YVBDl536ZlFCSgw" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="msvalidate.01" content="EA0BDFFECF0FF3C657E63410EF5B2A33" />
+<link href='//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic|Sacramento' rel='stylesheet' type='text/css'>
+@*This xmlpackage can be used to add dynamic data to javascripts such as tracking scripts that should run at the top of the head tag*@
+@Html.XmlPackage("script.head", new { OrderAlreadyConfirmed = ViewBag.OrderAlreadyConfirmed })
+
+@* Bundle and minify jQuery. *@
+@Html.RegisterScriptBundle(
+	bundleUrl: ScriptBundlePaths.SkinBundle,
+	urls: new[]
+	{
+		ScriptPaths.JQuery,
+		ScriptPaths.JQuery.AdnsfAlias,
+		Url.AppRelativeSkinUrl("scripts/js.cookie.js"),
+	})
+
+@* Bundle and minify CSS. *@
+@Html.RenderStyleBundle(
+	bundlePath: Url.SkinUrl("css/_skin_bundle"),
+	filePaths: new[]
+	{
+		Url.AppRelativeSkinUrl("css/bootstrap.css"),
+		Url.AppRelativeSkinUrl("css/font-awesome.css"),
+		Url.AppRelativeSkinUrl("css/base.css"),
+		Url.AppRelativeSkinUrl("css/style.css"),
+		Url.AppRelativeSkinUrl("css/yamm.css"),
+		Url.AppRelativeSkinUrl("css/custom.css"),
+	})
+<script src="//assets.adobedtm.com/c876840ac68fc41c08a580a3fb1869c51ca83380/satelliteLib-d4739fa35feff2630d7f6f5f647d9d46adb6a670.js"></script>
+<script type="text/javascript">
+(function(a,e,c,f,g,b,d){var h={ak:"1011031091",cl:"htgECPSfkmgQs7iM4gM"};a[c]=a[c]||function(){(a[c].q=a[c].q||[]).push(arguments)};a[f]||(a[f]=h.ak);b=e.createElement(g);b.async=1;b.src="//www.gstatic.com/wcm/loader.js";d=e.getElementsByTagName(g)[0];d.parentNode.insertBefore(b,d);a._googWcmGet=function(b,d,e){a[c](2,b,h,d,null,new Date,e)}})(window,document,"_googWcmImpl","_googWcmAk","script");
+</script>

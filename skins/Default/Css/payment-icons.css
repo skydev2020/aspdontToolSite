@@ -1,0 +1,55 @@
+/* Lazy Payment Methods */
+.cardname {
+	display: inline-block;
+	margin-right: 4px;
+	min-height: 32px;
+	width: 51px;
+}
+
+.payment-methods-wrap .visa {
+	background: url(../images/visa.png) no-repeat top left;
+}
+
+.payment-methods-wrap .visaelectron {
+	background: url(../images/visa-electron.png) no-repeat top left;
+}
+
+.payment-methods-wrap .mastercard {
+	background: url(../images/mastercard.png) no-repeat top left;
+}
+
+.payment-methods-wrap .amex, .payment-methods-wrap .americanexpress {
+	background: url(../images/amex.png) no-repeat top left;
+}
+
+.payment-methods-wrap .discover {
+	background: url(../images/discover.png) no-repeat top left;
+}
+
+.payment-methods-wrap .paypal {
+	background: url(../images/paypal.png) no-repeat top left;
+}
+
+.payment-methods-wrap .amazon {
+	background: url(../images/amazon.png) no-repeat top left;
+}
+
+.payment-methods-wrap .dinersclub {
+	background: url(../images/diners.png) no-repeat top left;
+}
+
+.payment-methods-wrap .maestro {
+	background: url(../images/maestro.png) no-repeat top left;
+}
+
+.payment-methods-wrap .solo {
+	background: url(../images/solo.png) no-repeat top left;
+}
+
+.payment-methods-wrap .delta {
+	background: url(../images/delta.png) no-repeat top left;
+}
+
+.cards-accepted {
+	padding-top: 12px;
+}

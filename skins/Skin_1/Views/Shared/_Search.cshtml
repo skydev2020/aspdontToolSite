@@ -1,0 +1,8 @@
+﻿@using (Html.BeginForm("Index", "Search", FormMethod.Get))
+{
+    <div class="search-form-group">
+        <input name="searchterm" class="form-control input-sm search-box" placeholder="@Html.StringResource("search.prompt")" type="text">
+        <input value="@Html.StringResource("search.go")" class="btn btn-default btn-sm search-go" type="submit">
+        <div class="clearfix"></div>
+    </div>
+}
